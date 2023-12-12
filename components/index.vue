@@ -39,11 +39,6 @@
                 >Sports Equipment</a
               >
             </li>
-            <li>
-              <a href="#" onclick="alert('Функция пока не работает')"
-                >Contact Us</a
-              >
-            </li>
           </ul>
           <span class="left-ribbon"></span>
           <span class="right-ribbon"></span>
@@ -158,7 +153,7 @@ import { supabase } from "supabase-nuxt";
 const { data, error } = await supabase.from("products").select();
 </script>
 
-<style scoped>
+<style>
 div,
 span,
 applet,
