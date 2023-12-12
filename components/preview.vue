@@ -1,13 +1,9 @@
-<script setup>
-const user = useSupabaseUser();
-</script>
-
 <template>
   <div class="header">
     <div class="wrap">
       <div class="header_top">
         <div class="logo">
-          <a href="index.html"><img src="web/images/logo.png" alt="" /></a>
+          <a href="index.html"><img src="./images/logo.png" alt="" /></a>
         </div>
         <div class="clear"></div>
       </div>
