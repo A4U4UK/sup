@@ -1,126 +1,259 @@
+<template>
+  <div class="sait">
+    <div class="header">
+      <div class="wrap">
+        <div class="header_top">
+          <div class="logo"></div>
+          <div class="header_top_right"></div>
+          <div class="clear"></div>
+        </div>
 
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-dl,
-dt,
-dd,
-ol,
-nav ul,
-nav li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-ol,
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
+        <div class="navigation">
+          <ul class="nav">
+            <li>
+              <nuxt-link to="/">Главная</nuxt-link>
+            </li>
+            <li class="test , q-pa-md q-gutter-sm">
+              <a href="#" onclick="alert('Функция пока не работает')"
+                >Компьютеры</a
+              >
+            </li>
+            <li>
+              <a href="#" onclick="alert('Функция пока не работает')"
+                >Домашние приборы</a
+              >
+            </li>
+            <li>
+              <a href="#" onclick="alert('Функция пока не работает')"
+                >Кухонная техника</a
+              >
+            </li>
+            <li>
+              <a href="#" onclick="alert('Функция пока не работает')"
+                >Смартфоны</a
+              >
+            </li>
+            <li>
+              <a href="#" onclick="alert('Функция пока не работает')"
+                >Планшеты</a
+              >
+            </li>
+            <li>
+              <a href="#">Отзывы</a>
+            </li>
+            <li>
+              <nuxt-link to="basket">Корзина</nuxt-link>
+            </li>
+            <li></li>
+          </ul>
+          <span class="left-ribbon"></span>
+          <span class="right-ribbon"></span>
+        </div>
 
-a {
+        <div class="header_bottom">
+          <div class="slider-text">
+            <h2>
+              ТехноДом
+              <br />
+              Или Сулпак
+            </h2>
+            <p>Магазин Техники и электроприборов впервые в Алматы .</p>
+            <a href="https://github.com/A4U4UK/">Наш оффициальный сайт</a>
+          </div>
+          <div class="slider-img">
+            <img src="/images/slider-img.png" alt="комп" />
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="content">
+        <div class="content_bottom">
+          <div class="wrap">
+            <div class="content-bottom-left">
+              <div class="buters-guide">
+                <h3>Buyers Guide</h3>
+                <p>
+                  <span
+                    >Я устал придумывать текст на сайте но лорем не хочу
+                  </span>
+                </p>
+                <p>
+                  Большой ассортимент товаров доступен для ознакомления на
+                  данном сайте, где вы можете получить информацию о продукте
+                  перед покупкой. Однако извините, но на этом сайте невозможно
+                  совершить покупку из-за технических проблем или других причин.
+                </p>
+              </div>
+            </div>
+
+            <div class="content-bottom-right">
+              <h3>Browse All Categories</h3>
+              <div class="section group">
+                <div
+                  v-for="item in data"
+                  :key="item.id"
+                  class="grid_1_of_4 images_1_of_4">
+                  <h4 class="name_item">
+                    <a>{{ item.name }}</a>
+                  </h4>
+                  <div class="img_cart">
+                    <img
+                      style="max-width: 120px; min-height: 80px"
+                      :src="item.img"
+                      alt="" />
+                  </div>
+                  <div class="price-details">
+                    <div class="price-number">
+                      <p>
+                        <span class="rupees">₸{{ item.price }}</span>
+                      </p>
+                    </div>
+                    <nuxt-link class="button-56" :to="`preview/${item.id}`"
+                      >Подробнее</nuxt-link
+                    >
+                    <div class="clear"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="padding-top: 30px" class="product-articles">
+              <ul>
+                <li>
+                  <div class="article">
+                    <p>
+                      Далеко-далеко за словесными горами в стране гласных, и
+                      согласных живут рыбные тексты. Текст, рукописи текстов о
+                      единственное продолжил речью скатился если сбить буквенных
+                      пустился живет решила большого, агентство снова курсивных,
+                      океана она выйти возвращайся безопасную он гор домах всеми
+                      мир? По всей океана о рекламных запятой курсивных журчит
+                      заглавных моей назад речью рыбного? Инициал, запятых даже.
+                      Переулка вопрос дорогу грустный напоивший на берегу, путь
+                      до приставка? Строчка, lorem всемогущая продолжил
+                      безорфографичный вершину даже! Языкового букв коварных
+                      подзаголовок власти это ipsum диких, пунктуация, ты
+                      грамматики за пустился точках, первую они правилами она
+                      даль своего проектах переписали предупредила грустный. Мир
+                      пор если имени свое даже переулка!
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="wrap">
+        <div class="copy_right">
+          <p>Здесь могла быть ваша реклама</p>
+        </div>
+        <div class="footer-nav">
+          <ul>
+            <li><a href="https://supabase.com/">Наши партнер</a> :</li>
+            <li><a href="https://www.sulpak.kz/">Инфомация</a> :</li>
+            <li><a href="https://t.me/Ot4imVlada">Контакты с автором</a> :</li>
+            <li>
+              <a href="https://www.youtube.com/watch?v=k9RU4uW0kSY">Sigma</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script setup>
+import { createClient } from "@supabase/supabase-js";
+const client = createClient(
+  "https://nrdgebxynjkyfcrwohjo.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5yZGdlYnh5bmpreWZjcndvaGpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE2ODc4NTYsImV4cCI6MjAxNzI2Mzg1Nn0.ML9-cPzQOD3BPeUMFq-4fqJZwL7D-KGz0EAhgzgDURk"
+);
+const { data } = await useAsyncData("goods", async () => {
+  const { data } = await client.from("goods").select("*");
+  return data;
+});
+console.log(data.value);
+</script>
+<style>
+.button-56 {
+  align-items: center;
+  background-color: #fee6e3;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: 100%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
   text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-56:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform 0.2s ease-out;
+  z-index: -1;
+}
+
+.button-56:hover:after {
+  transform: translate(0, 0);
+}
+
+.button-56:active {
+  transition: 0.5s;
+  background-color: #040000;
+  outline: 0;
+}
+
+.button-56:hover {
+  transition: 0.5s;
+  background-color: #eb8178;
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  .button-56 {
+    padding: 0 40px;
+  }
+}
+
+.img_cart {
+  padding-top: 10px;
+  padding-left: 10px;
+  width: 150px;
+  height: 180px;
+}
+.but_more {
+  text-decoration: none;
+  size: 40%;
+  border-color: #666;
+}
+.name_item {
+  margin-top: 20px;
 }
 
 .clear {
@@ -130,7 +263,7 @@ a {
 img {
   max-width: 100%;
 }
-
+/*end reset*/
 @font-face {
   font-family: "Ubuntu Condensed", sans-serif;
   src: url(../font/Amble-Regular-webfont.ttf) format("truetype");
@@ -150,7 +283,7 @@ body {
 }
 .header {
   background: #23272a;
-  padding: 20px 0;
+  padding-bottom: 40px;
 }
 .header_top {
   padding-bottom: 25px;
@@ -164,6 +297,7 @@ body {
 }
 
 .navigation {
+  align-items: center;
   background: #e44f2b;
   padding: 5px 0;
   position: relative;
@@ -174,7 +308,7 @@ body {
   top: 8px;
   width: 40px;
   height: 60px;
-  background: url(/images/left-fold.png) no-repeat;
+  background: url(../images/left-fold.png) no-repeat;
 }
 .navigation span.right-ribbon {
   position: absolute;
@@ -182,10 +316,11 @@ body {
   top: 8px;
   width: 40px;
   height: 60px;
-  background: url(/images/right-fold.png) no-repeat;
+  background: url(../images/right-fold.png) no-repeat;
 }
 .toggleMenu {
-  display: flex;
+  padding-left: 20px;
+  display: block;
   padding: 16px 15px;
   color: #fff;
   width: 95%;
@@ -354,7 +489,7 @@ body {
   width: 42%;
 }
 .slider-img img {
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
 .content_bottom {
@@ -441,7 +576,9 @@ body {
 .grid_1_of_4 {
   display: block;
   float: left;
-  margin: 0.2%;
+}
+.grid_1_of_4:first-child {
+  margin-left: 0;
 }
 .images_1_of_4 {
   width: 20%;
@@ -462,9 +599,7 @@ body {
 }
 .add-cart h4 a,
 .add-cart h4 a:after {
-  content: "";
-  position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   border-width: 14px 0px 12px 5px;
   border-style: solid;
@@ -472,7 +607,6 @@ body {
 }
 .add-cart h4 a:before {
   content: "";
-  position: absolute;
   top: 0;
   right: 0;
   border-width: 14px 5px 12px 0px;
@@ -485,6 +619,7 @@ body {
 }
 .product-articles {
   padding: 20px 0;
+  padding-top: 30px;
 }
 .product-articles p {
   font-size: 15px;
@@ -886,7 +1021,7 @@ body {
       padding: 3% 0;
     }
     .images_1_of_4 {
-      width: 44.72%;
+      width: 45%;
     }
     .copy_right,
     .footer-nav {
@@ -928,4 +1063,4 @@ body {
     text-align: center;
   }
 }
-
+</style>

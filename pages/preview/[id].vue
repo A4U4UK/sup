@@ -1,136 +1,177 @@
+<script setup>
+import { createClient } from "@supabase/supabase-js";
+const route = useRoute();
+const id = route.params.id;
+const client = createClient(
+  "https://nrdgebxynjkyfcrwohjo.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5yZGdlYnh5bmpreWZjcndvaGpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE2ODc4NTYsImV4cCI6MjAxNzI2Mzg1Nn0.ML9-cPzQOD3BPeUMFq-4fqJZwL7D-KGz0EAhgzgDURk"
+);
+const { data } = await useAsyncData("goods", async () => {
+  const { data } = await client.from("goods").select("*").eq("id", id);
+  return data;
+});
+const isInCart = ref(false);
+const getCart = async () => {
+  const { busket_data } = await useAsyncData("isInBusket", async () => {
+    const { data } = await client.from("bucket").select();
+    return data;
+  });
+  console.log(busket_data);
+  isInCart.value = busket_data.some((item) => item.id === id);
+};
+getCart();
 
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-dl,
-dt,
-dd,
-ol,
-nav ul,
-nav li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-ol,
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
+const { busket_data } = await useAsyncData("busketItem", async () => {
+  const { data } = await client.from("goods").select().eq("id", id);
+  return data;
+});
+console.log(busket_data);
 
-a {
-  text-decoration: none;
-}
+const isLoading = ref(false);
 
+const addToCart = async () => {
+  isLoading.value = true;
+  if (!busket_data?.value) {
+    const { busket_res } = await client.from("bucket").insert({
+      id: id,
+      name: busket_data.value[0].name,
+      price: busket_data.value[0].price,
+    });
+  }
+  console.log(busket_res);
+  getCart();
+  isLoading.value = false;
+};
+</script>
+<template>
+  <div class="header">
+    <div class="wrap">
+      <div class="header_top">
+        <div class="logo">
+          <a href="index.html"><img src="./images/logo.png" alt="" /></a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="navigation">
+        <ul class="nav">
+          <li>
+            <nuxt-link to="/">Главная</nuxt-link>
+          </li>
+          <li class="test , q-pa-md q-gutter-sm">
+            <a href="#" onclick="alert('Функция пока не работает')"
+              >Компьютеры</a
+            >
+          </li>
+          <li>
+            <a href="#" onclick="alert('Функция пока не работает')"
+              >Домашние приборы</a
+            >
+          </li>
+          <li>
+            <a href="#" onclick="alert('Функция пока не работает')"
+              >Кухонная техника</a
+            >
+          </li>
+          <li>
+            <a href="#" onclick="alert('Функция пока не работает')"
+              >Смартфоны</a
+            >
+          </li>
+          <li>
+            <a href="#" onclick="alert('Функция пока не работает')">Планшеты</a>
+          </li>
+          <li>
+            <a href="#">Отзывы</a>
+          </li>
+          <li>
+            <a href="#">Корзина</a>
+          </li>
+          <li></li>
+        </ul>
+        <span class="left-ribbon"> </span>
+        <span class="right-ribbon"> </span>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="wrap">
+      <div class="preview-page">
+        <div class="section">
+          <div class="cont-desc span_1_of_2">
+            <div class="product-details">
+              <div class="desc span_3_of_2">
+                <h2>{{ data[0].name }}</h2>
+                <p class="info_text">{{ data[0].info1 }}</p>
+                <div class="price">
+                  <p>
+                    Price:<span>₸{{ data[0].price }}</span>
+                  </p>
+                </div>
+                <div class="available">
+                  <ul>
+                    <li>
+                      <span>Shipping Weight:</span>&nbsp;
+                      {{ data[0].Weight }} kg
+                    </li>
+                  </ul>
+                </div>
+                <div class="share-desc">
+                  <div class="share"></div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="product_desc">
+              <div id="horizontalTab">
+                <div class="product-tags">
+                  <p class="info_text">{{ data[0].info2 }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="img_prod">
+            <img class="img_prod" :src="data[0].img" alt="" />
+          </div>
+        </div>
+        <button id="buy" @click="addToCart()" :disabled="dis">КУПИТЬ</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="wrap">
+      <div class="copy_right">
+        <p>Здесь могла быть ваша реклама</p>
+      </div>
+      <div class="footer-nav">
+        <ul>
+          <li><a href="https://supabase.com/">Наши партнер</a> :</li>
+          <li><a href="https://www.sulpak.kz/">Инфомация</a> :</li>
+          <li><a href="https://t.me/Ot4imVlada">Контакты с автором</a> :</li>
+          <li>
+            <a href="https://www.youtube.com/watch?v=k9RU4uW0kSY">Sigma</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+<style scoped>
+.img_prod {
+  padding-left: 20px;
+  width: 60vh;
+}
+.info_text {
+  font-size: 40px;
+}
 .clear {
   clear: both;
-}
+} /* clear float */
 
 img {
   max-width: 100%;
 }
-
+/*end reset*/
 @font-face {
   font-family: "Ubuntu Condensed", sans-serif;
   src: url(../font/Amble-Regular-webfont.ttf) format("truetype");
@@ -150,7 +191,7 @@ body {
 }
 .header {
   background: #23272a;
-  padding: 20px 0;
+  padding-bottom: 40px;
 }
 .header_top {
   padding-bottom: 25px;
@@ -160,7 +201,6 @@ body {
 }
 .header_top_right {
   float: right;
-  padding-top: 10px;
 }
 
 .navigation {
@@ -185,7 +225,7 @@ body {
   background: url(/images/right-fold.png) no-repeat;
 }
 .toggleMenu {
-  display: flex;
+  display: none;
   padding: 16px 15px;
   color: #fff;
   width: 95%;
@@ -354,7 +394,7 @@ body {
   width: 42%;
 }
 .slider-img img {
-  margin-top: 40px;
+  margin-top: -60px;
 }
 
 .content_bottom {
@@ -423,6 +463,7 @@ body {
 }
 
 .section {
+  display: flex;
   clear: both;
   padding: 0px;
   margin: 0px;
@@ -441,11 +482,14 @@ body {
 .grid_1_of_4 {
   display: block;
   float: left;
-  margin: 0.2%;
+  margin: 10px 10px;
+}
+.grid_1_of_4:first-child {
+  margin-left: 0;
 }
 .images_1_of_4 {
   width: 20%;
-  padding: 1.5%;
+  padding: 2%;
   text-align: center;
   position: relative;
   background: #fff;
@@ -886,7 +930,7 @@ body {
       padding: 3% 0;
     }
     .images_1_of_4 {
-      width: 44.72%;
+      width: 45%;
     }
     .copy_right,
     .footer-nav {
@@ -928,4 +972,4 @@ body {
     text-align: center;
   }
 }
-
+</style>
